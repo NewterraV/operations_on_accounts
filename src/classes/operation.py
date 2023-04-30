@@ -1,6 +1,6 @@
 class Operation:
 
-    def __init__(self, item,):
+    def __init__(self, item, ):
         self.id = item["id"]
         self.state = item['state']
         self.date = item['date']
@@ -26,7 +26,7 @@ class Operation:
         date = self.date[:10].split('-')
 
         return {"date": f'{date[2]}.{date[1]}.{date[0]}',
-                 "from": self.source,
-                 "to": self.to,
-                 "description": self.description,
-                 "amount": f'{self.operation_amount["amount"]} {self.operation_amount["currency"]["name"]}'}
+                "from": self.source,
+                "to": self.to,
+                "description": self.description,
+                "amount": f'{self.operation_amount["amount"]} {self.operation_amount["currency"]["name"]}'}

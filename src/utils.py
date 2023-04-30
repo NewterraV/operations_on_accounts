@@ -9,10 +9,9 @@ def read_json(path):
     :return: Данные (dict, list)
     """
     with open(path, 'r', encoding='utf8') as f:
-        if json.load(f):
-            return json.load(f)
+        dictionary = json.loads(f.read())
 
-        return False
+    return dictionary
 
 
 def encrypts_text(item):

@@ -1,6 +1,6 @@
 class Operation:
 
-    def __init__(self, item,):
+    def __init__(self, item, ):
         self.id = item["id"]
         self.state = item['state']
         self.date = item['date']
@@ -17,16 +17,16 @@ class Operation:
     def get_dict(self):
         """
         Функция на основе полученого экземпляра класса вовращает словарь для вывода операции
-        при условии что статус операции "Выполнена". В противном случае возвращает "False"
-        :return:(dict, bool)
+        при условии что статус операции "Выполнена". В противном случае возвращает пустой словарь
+        :return:(dict)
         """
         if self.state.lower() == 'canceled':
-            return False
+            return {}
 
         date = self.date[:10].split('-')
 
         return {"date": f'{date[2]}.{date[1]}.{date[0]}',
-                 "from": self.source,
-                 "to": self.to,
-                 "description": self.description,
-                 "amount": f'{self.operation_amount["amount"]} {self.operation_amount["currency"]["name"]}'}
+                "from": self.source,
+                "to": self.to,
+                "description": self.description,
+                "amount": f'{self.operation_amount["amount"]} {self.operation_amount["currency"]["name"]}'}

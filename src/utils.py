@@ -10,7 +10,29 @@ def encrypts_text(item):
         return ''
 
     if item[:4].lower() == 'счет':
-        return f'{item[:4]} **{item[-4:]}'
+        return f'{item[:4]} ** {item[-4:]}'
 
     number = f'{item[-16:-12]} {item[-12:-10]}** **** {item[-4:]}'
     return f'{item[:-17]} {number}'
+
+
+def get_text_operation(item):
+    """
+    Функция принимает словарь созданный функцией класса Operation
+    и на основе него создает орматированный текст для вывода.
+    :param item: Словарь на основе Operation.get_dict (dict)
+    :return: Текст (str)
+    """
+
+    line = item['date'] if not item['description'] else f'{item["date"]} {item["description"]}'
+
+    if not item['from']:
+        line_2 = f'-> {encrypts_text(item["to"])}'
+
+    elif not item['to']:
+        line_2 = f'{encrypts_text(item["from"])} ->'
+
+    else:
+        line_2 = f'{encrypts_text(item["from"])} -> {encrypts_text(item["to"])}'
+
+    return f'{line}\n{line_2}\n{item["amount"]}\n'

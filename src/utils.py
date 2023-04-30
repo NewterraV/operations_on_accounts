@@ -1,3 +1,20 @@
+import json
+
+
+def read_json(path):
+    """
+    Функция получает путь к json-файлу и возвращает данные из него.
+    В случае отсутствия данных возвращает "False"
+    :param path: Путь к файлу (str)
+    :return: Данные (dict, list)
+    """
+    with open(path, 'r', encoding='utf8') as f:
+        if json.load(f):
+            return json.load(f)
+
+        return False
+
+
 def encrypts_text(item):
     """
     Функция получает строку и возращает её в зашифрованном виде, в случае получения пустой строки возвращает

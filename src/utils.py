@@ -1,6 +1,16 @@
 import json
 
 
+def get_date(dictionary):
+    """
+    Функция получает словарь и возвращает значение ключа 'date'
+    :param dictionary: (dict)
+    :return: (str)
+    """
+    if dictionary:
+        return dictionary['date']
+
+
 def read_json(path):
     """
     Функция получает путь к json-файлу и возвращает данные из него.

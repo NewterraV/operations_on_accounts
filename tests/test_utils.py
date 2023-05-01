@@ -1,5 +1,5 @@
 import pytest
-from src.utils import encrypts_text, get_text_operation
+from src.utils import encrypts_text, get_text_operation,get_date
 
 data = {"date": "26.08.2019",
         "from": "Maestro 1596837868705199",
@@ -34,3 +34,7 @@ def test_encrypts_text(item, result):
 ])
 def test_get_text_operation(item, result):
     assert get_text_operation(item) == result
+
+
+def test_get_date():
+    assert get_date({'id': '1324', 'date': '24.06.2019'}) == '24.06.2019'

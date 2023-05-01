@@ -1,3 +1,6 @@
+from src.utils import encrypts_text, format_date
+
+
 class Operation:
 
     def __init__(self, item, ):
@@ -14,19 +17,35 @@ class Operation:
                f'operation_amount = {self.operation_amount}\ndescription = {self.description}\n' \
                f'from = {self.source}\n to = {self.to}'
 
-    def get_dict(self):
+    def check_state(self):
         """
-        Функция на основе полученого экземпляра класса вовращает словарь для вывода операции
-        при условии что статус операции "Выполнена". В противном случае возвращает пустой словарь
-        :return:(dict)
+        Функция проверяет статус операции. Возвращает True/False
+        :return: (bool)
         """
-        if self.state.lower() == 'canceled':
-            return {}
+        if self.state.upper() == 'EXECUTED':
+            return True
 
-        date = self.date[:10].split('-')
+        return False
 
-        return {"date": f'{date[2]}.{date[1]}.{date[0]}',
-                "from": self.source,
-                "to": self.to,
-                "description": self.description,
-                "amount": f'{self.operation_amount["amount"]} {self.operation_amount["currency"]["name"]}'}
+    def get_text(self):
+        """
+        Функция на основе полученого экземпляра класса вовращает сообщение о операции.
+        :return: Сообщение (str)
+        """
+
+        # Приведение первой строки вывода к необходимому формату
+        date = format_date(self.date)
+        line = date if not self.description else f'{date} {self.description}'
+
+        # Проверка наличия элементов и на основе их присутствия приведение второй строки к необходимому формату
+        if not self.source:
+            line_2 = f'-> {encrypts_text(self.to)}'
+        elif not self.to:
+            line_2 = f'{encrypts_text(self.source)} ->'
+        else:
+            line_2 = f'{encrypts_text(self.source)} -> {encrypts_text(self.to)}'
+
+        # Приведение третьей строки к необходимому формату
+        line_3 = f'{self.operation_amount["amount"]} {self.operation_amount["currency"]["name"]}'
+
+        return f'{line}\n{line_2}\n{line_3}\n'

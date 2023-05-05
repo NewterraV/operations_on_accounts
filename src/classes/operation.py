@@ -22,10 +22,7 @@ class Operation:
         Функция проверяет статус операции. Возвращает True/False
         :return: (bool)
         """
-        if self.state.upper() == 'EXECUTED':
-            return True
-
-        return False
+        return self.state.upper() == 'EXECUTED'
 
     def get_text(self):
         """
